@@ -44,6 +44,30 @@ cd ~/dotfiles
 ./install.sh
 ```
 
+## 3) SSH Key 설정 (최초 1회)
+
+install.sh 실행 시, ~/.ssh/id_ed25519.pub 파일이 없으면 자동으로 SSH 키를 생성합니다.
+
+* 생성된 공개키 출력 예시:
+```bash
+[install] SSH key not found, generating new key...
+[install] Public key generated:
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB...
+👉 위 키를 GitHub > Settings > SSH and GPG keys 에 등록하세요.
+```
+* GitHub에 등록한 후 연결 테스트:
+```bash
+ssh -T git@github.com
+```
+성공 시:
+```bash
+Hi <username>! You've successfully authenticated, but GitHub does not provide shell access.
+```
+* 권한 설정 (install.sh에서 자동 적용):
+** ~/.ssh → 700
+** ~/.ssh/id_ed25519 → 600
+** ~/.ssh/id_ed25519.pub → 644
+
 ### 레포 구조
 
 ```
