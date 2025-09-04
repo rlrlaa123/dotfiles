@@ -1,0 +1,50 @@
+# 사용자 정보
+[user]
+	name = rlrlaa123
+	email = kimdonghyun3366@gmail.com
+
+# 자주 쓰는 alias
+[alias]
+  st = status -sb
+  co = checkout
+  cob = checkout -b
+  br = branch
+  cm = commit -m
+  amend = commit --amend --no-edit
+  lg = log --oneline --graph --decorate --all
+  last = log -1 HEAD
+  df = diff
+  dc = diff --cached
+
+# 색상 출력
+[color]
+  ui = auto
+
+# 기본 브랜치명
+[init]
+  defaultBranch = main
+
+# push 기본 동작: 현재 브랜치만
+[push]
+  default = current
+
+# rebase 모드로 pull (merge commit 줄이기)
+[pull]
+  rebase = true
+
+# diff/merge 툴 (VS Code 사용 시)
+[core]
+  editor = code --wait
+  autocrlf = input
+  excludesfile = ~/.gitignore_global
+
+[merge]
+  tool = vscode
+[mergetool "vscode"]
+  cmd = code --wait $MERGED
+
+[diff]
+  tool = vscode
+[difftool "vscode"]
+  cmd = code --wait --diff $LOCAL $REMOTE
+
