@@ -26,9 +26,7 @@
 ## 1) Ubuntu 최초 1회 부트스트랩
 
 ```bash
-sudo apt-get update -y
-sudo apt-get install -y build-essential git curl vim tig htop jq make mysql-client \
-  python3 python3-venv python3-pip python3-dev
+sudo apt-get update -y && sudo apt-get install -y build-essential git curl vim tig htop jq make mysql-client python3 python3-venv python3-pip python3-dev npm && sudo npm install -g n npm pnpm && sudo n lts
 ```
 
 * Node.js: `n` 으로 설치 후 `lts` 버전 사용, pnpm 활성화
