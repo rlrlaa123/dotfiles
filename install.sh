@@ -36,5 +36,10 @@ chmod 644 "$HOME/.ssh/id_ed25519.pub" 2>/dev/null || true
 ln -sf $DOTFILES/.gitconfig $HOME/.gitconfig
 ln -sf $DOTFILES/.gitignore_global $HOME/.gitignore_global
 
+# Custom scripts 설치
+mkdir -p "$HOME/.local/bin"
+ln -sf "$DOTFILES/scripts/setup-ci-husky.sh" "$HOME/.local/bin/setup-ci-husky"
+chmod +x "$HOME/.local/bin/setup-ci-husky"
+
 echo "[install] done. Run 'source ~/.bashrc'"
 
