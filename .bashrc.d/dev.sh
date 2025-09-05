@@ -8,4 +8,3 @@ fi
 mkvenv() { python3 -m venv .venv && . .venv/bin/activate && pip install --upgrade pip wheel setuptools; }
 alias act="source .venv/bin/activate"
 alias mysqlc="mysql -h 127.0.0.1 -P 3306 -uroot -proot climbing"
-

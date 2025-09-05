@@ -1,14 +1,35 @@
 #!/usr/bin/env bash
 set -e
 
-DOTFILES=$HOME/dotfiles
+DOTFILES=$HOME/work/dotfiles
 
 echo "[install] linking dotfiles from $DOTFILES"
 
 # bashrc
-ln -sf $DOTFILES/.bashrc $HOME/.bashrc
-mkdir -p $HOME/.bashrc.d
-ln -sf $DOTFILES/.bashrc.d/dev.sh $HOME/.bashrc.d/dev.sh
+#ln -sf $DOTFILES/.bashrc $HOME/.bashrc
+#mkdir -p $HOME/.bashrc.d
+#ln -sf $DOTFILES/.bashrc.d/dev.sh $HOME/.bashrc.d/dev.sh
+# === Bashrc: 최소 병합 ===
+BASHRC="$HOME/.bashrc"
+BASHRC_D="$HOME/.bashrc.d"
+
+mkdir -p "$BASHRC_D"
+[ -f "$BASHRC" ] || cp /etc/skel/.bashrc "$BASHRC"
+
+# 로더가 없을 때만 1회 추가
+if ! grep -q '# >>> dotfiles loader >>>' "$BASHRC" 2>/dev/null; then
+  cat >> "$BASHRC" <<'EOF'
+# >>> dotfiles loader >>>
+[ -f /etc/bash.bashrc ] && . /etc/bash.bashrc
+for f in ~/.bashrc.d/*.sh; do [ -r "$f" ] && . "$f"; done
+unset f
+# <<< dotfiles loader <<<
+EOF
+fi
+
+# 사용자 커스텀 스크립트 연결/갱신
+ln -sfn "$DOTFILES/.bashrc.d/dev.sh" "$BASHRC_D/dev.sh"
+
 
 # dev config
 mkdir -p $HOME/.config/dev
