@@ -118,4 +118,44 @@ pnpm -v
 mkvenv && act && python -c "print('venv ok')"
 ```
 
+## 6) CI / Husky 세팅
+
+이 레포에는 `setup-ci-husky` 스크립트가 포함되어 있어, 새 프로젝트에서 쉽게
+Husky(로컬 훅) + commitlint + lint-staged + GitHub Actions CI 를 구성할 수 있습니다.
+
+### 1) 실행 방법
+프로젝트 루트에서:
+```bash
+setup-ci-husky
+git add -A
+git commit -m "chore: setup husky/ci"
+git push -u origin main
+```
+
+### 2) 생성되는 주요 파일
+* .husky/pre-commit → 커밋 전에 lint-staged 실행 (변경 파일만 prettier/eslint fix)
+* .husky/commit-msg → 커밋 메시지 규칙 검사 (Conventional Commits 강제)
+* .husky/pre-push → 푸시 전에 typecheck + test 실행
+* commitlint.config.cjs → 커밋 규칙 정의
+* package.json → scripts, lint-staged 설정 추가
+* .github/workflows/ci.yml → GitHub Actions CI 워크플로우 (lint/typecheck/test/build)
+
+### 3) 로컬 vs 원격 역할
+* 로컬 (Husky): 빠른 피드백
+* pre-commit → 포맷 + 린트
+* commit-msg → 커밋 메시지 룰 확인
+* pre-push → 최소 안전망 (타입체크 + 테스트)
+* 원격 (GitHub Actions CI): 풀 검증
+* lint / typecheck / test / build 전체 실행
+* PR / main push 시 자동으로 동작
+
+### 4) 커밋 메시지 예시 (Conventional Commits)
+* feat(auth): add OAuth login
+* fix(api): handle null user
+* chore: update dependencies
+* docs(readme): add setup guide
+
+### 5) 참고
+* Husky는 prepare 스크립트로 자동 활성화됩니다.
+* GitHub main 브랜치 보호 규칙에 CI 체크 필수를 걸어두면, PR 머지 전에 자동으로 품질 보장됩니다.
 ---
